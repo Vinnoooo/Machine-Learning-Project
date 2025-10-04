@@ -10,7 +10,7 @@ signal = np.sin(2*np.pi*f1*t) + 0.5*np.sin(2*np.pi*f2*t)
 F = np.fft.fft(signal)
 freq = np.fft.fftfreq(len(signal), d=(t[1]-t[0]))
 
-# 3. Take only the positive frequencies for plotting
+# --- First figure: FFT Magnitude Spectrum ---
 mask = freq >= 0
 plt.figure(figsize=(10,4))
 plt.plot(freq[mask], np.abs(F[mask]))
@@ -18,23 +18,22 @@ plt.title("FFT Magnitude Spectrum")
 plt.xlabel("Frequency (Hz)")
 plt.ylabel("|F(ω)|")
 plt.grid(True)
-plt.show()
 
-import numpy as np
-import matplotlib.pyplot as plt
-
-t = np.linspace(0, 1, 1000)
-signal = np.sin(2*np.pi*t) + 0.5*np.sin(50*np.pi*t)
-
-# Fourier transform
+# --- Second figure: Original vs Filtered Signal ---
 fft_coeffs = np.fft.fft(signal)
-# Zero out high-frequency coefficients
-fft_coeffs[10:-10] = 0
-# Reconstruct signal
+fft_coeffs[10:-10] = 0           # zero out high-frequency components
 filtered_signal = np.fft.ifft(fft_coeffs)
 
+plt.figure(figsize=(10,4))        # Create a new figure for the second plot
 plt.plot(t, signal, label='Original')
 plt.plot(t, filtered_signal.real, label='Filtered')
+plt.title("Original vs Filtered Signal")
+plt.xlabel("Time (s)")
+plt.ylabel("Amplitude")
 plt.legend()
+plt.grid(True)
+
+# Show both figures at the same time
 plt.show()
+
 
