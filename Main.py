@@ -37,3 +37,5 @@ plt.plot(t, signal, label='Original')
 plt.plot(t, filtered_signal.real, label='Filtered')
 plt.legend()
 plt.show()
+
+"Tada!"
