@@ -19,3 +19,21 @@ plt.xlabel("Frequency (Hz)")
 plt.ylabel("|F(ω)|")
 plt.grid(True)
 plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 1, 1000)
+signal = np.sin(2*np.pi*t) + 0.5*np.sin(50*np.pi*t)
+
+# Fourier transform
+fft_coeffs = np.fft.fft(signal)
+# Zero out high-frequency coefficients
+fft_coeffs[10:-10] = 0
+# Reconstruct signal
+filtered_signal = np.fft.ifft(fft_coeffs)
+
+plt.plot(t, signal, label='Original')
+plt.plot(t, filtered_signal.real, label='Filtered')
+plt.legend()
+plt.show()
